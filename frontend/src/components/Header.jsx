@@ -19,12 +19,21 @@ export default function Header() {
             {/* Right Nav */}
             <div className="flex items-center gap-4 text-sm text-gray-300">
                 <SearchBar />
-                <button
-                    type="button"
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-md transition"
-                >
-                    Sign In
-                </button>
+                 <div className="flex items-center bg-blue-500 rounded-md text-white text-sm select-none">
+          <Link
+            to="/login"
+            className="px-2 py-1 hover:bg-blue-600 transition"
+          >
+            Sign In
+          </Link>
+          <span className="px-1 select-none">/</span>
+          <Link
+            to="/register"
+            className="px-2 py-1 hover:bg-blue-600 transition"
+          >
+            Sign Up
+          </Link>
+        </div>
             </div>
         </header>
     );

@@ -77,15 +77,22 @@ exports.updateStory = async (req, res) => {
 };
 
 // @desc    Delete a story
+// controllers/story.controller.js
 exports.deleteStory = async (req, res) => {
     try {
-        const deleted = await Story.findByIdAndDelete(req.params.id);
-        if (!deleted) {
-            return res.status(404).json({ error: "Story not found" });
+        const story = await Story.findByIdAndDelete(req.params.id);
+        if (!story) {
+            return res.status(404).json({ message: "Story not found" });
         }
-        res.json({ message: "Story deleted successfully" });
+
+        // Optional: delete the associated content
+        await Content.findByIdAndDelete(story.contentId);
+
+        res.status(200).json({ message: "Story deleted successfully" });
     } catch (err) {
-        console.error("Error deleting story:", err);
-        res.status(500).json({ error: "Failed to delete story" });
+        console.error("Delete error:", err);
+        res.status(500).json({ message: "Failed to delete story" });
     }
 };
+
+

@@ -60,6 +60,7 @@ exports.updateBook = async (req, res) => {
 
 // @desc Delete book by ID
 exports.deleteBook = async (req, res) => {
+    console.log("Attempting to delete book with ID:", req.params.id);
     try {
         const deletedBook = await Book.findByIdAndDelete(req.params.id);
         if (!deletedBook) {
@@ -67,6 +68,8 @@ exports.deleteBook = async (req, res) => {
         }
         res.json({ message: "Book deleted successfully" });
     } catch (_err) {
+        console.error("Delete error:", _err);
         res.status(500).json({ error: "Failed to delete book" });
     }
 };
+

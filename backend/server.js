@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const storyRoutes = require("./routes/story.route.js");
 const contentRoutes = require("./routes/content.route.js");
+const userRoutes = require("./routes/user.route.js");
+const bookRoutes = require("./routes/book.route.js");
 
 const app = express();
 
@@ -16,8 +18,9 @@ app.use("/covers", express.static("uploads/covers"));
 
 // API routes
 app.use("/api/stories", storyRoutes);
+app.use("/api/books", bookRoutes);
 app.use("/api/content", contentRoutes);
-
+app.use("/api/auth", userRoutes);
 // DB connection and server start
 mongoose.connect(process.env.MONGO_URI).then(() =>
     app.listen(

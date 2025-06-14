@@ -47,7 +47,7 @@ export default function Featured() {
                 : error
                 ? <p className="text-red-500">Error: {error}</p>
                 : (
-                    <section className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
+                    <section className="grid gap-6 grid-cols-3 justify-items-center">
                         {featuredBooks.map((book) => (
                             <Link to={`/story/${book._id}`} key={book._id}>
                                 <FeaturedBook

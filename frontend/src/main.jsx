@@ -12,8 +12,8 @@ import PrivateLayout from "./pages/PrivateLayout.jsx";
 import CreatePage from "./pages/CreatePage.jsx";
 import StoryDetailSingle from "./pages/StoryDetailSingle.jsx";
 import StoryReader from "./pages/StoryReader.jsx";
-
-// Pages Import
+import Register from './pages/register.jsx'
+import Login from "./pages/login.jsx";
 
 // @Public
 
@@ -28,6 +28,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="browse" element={<BrowsePage />} />
           <Route path="/story/:id" element={<StoryDetailSingle />} />
           <Route path="/read/:id" element={<StoryReader />} />
+          <Route path="login" element={<Login/>} />
+  <Route path="register" element={<Register />} />
         </Route>
 
         {/* @Private Page */}

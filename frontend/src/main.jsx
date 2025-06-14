@@ -12,31 +12,32 @@ import PrivateLayout from "./pages/PrivateLayout.jsx";
 import CreatePage from "./pages/CreatePage.jsx";
 import StoryDetailSingle from "./pages/StoryDetailSingle.jsx";
 import StoryReader from "./pages/StoryReader.jsx";
-import Register from './pages/register.jsx'
+import Register from './pages/register.jsx';
 import Login from "./pages/login.jsx";
 
-// @Public
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        {/* @Public Page */}
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* @Public Page */}
+          <Route path="/" element={<HomeLayout />}>
+            <Route index element={<Homepage />} />
+            <Route path="browse" element={<BrowsePage />} />
+            <Route path="/story/:id" element={<StoryDetailSingle />} />
+            <Route path="/read/:id" element={<StoryReader />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
 
-        <Route path="/" element={<HomeLayout />}>
-          <Route index element={<Homepage />} />
-          <Route path="browse" element={<BrowsePage />} />
-          <Route path="/story/:id" element={<StoryDetailSingle />} />
-          <Route path="/read/:id" element={<StoryReader />} />
-          <Route path="login" element={<Login/>} />
-  <Route path="register" element={<Register />} />
-        </Route>
-
-        {/* @Private Page */}
-        <Route path="/user" element={<PrivateLayout />}>
-          <Route path="create" element={<CreatePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
+          {/* @Private Page */}
+          <Route path="/user" element={<PrivateLayout />}>
+            <Route path="create" element={<CreatePage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </StrictMode>
 );

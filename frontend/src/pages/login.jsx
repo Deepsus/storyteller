@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -12,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -24,8 +26,15 @@ const Login = () => {
 
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", formData);
-      alert(res.data.message || "Login successful");
-      navigate("/browse"); // or homepage
+      const token = res.data.token; // Backend should send token on success
+
+      if (token) {
+        login(token); // save token and update login state
+        alert(res.data.message || "Login successful");
+        navigate("/browse"); // redirect to browse page after login
+      } else {
+        setError("Login failed: no token received");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
